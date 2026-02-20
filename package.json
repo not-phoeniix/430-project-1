@@ -1,0 +1,30 @@
+{
+  "name": "430-http-api-assignment-ii",
+  "version": "1.0.0",
+  "description": "",
+  "main": "eslint.config.js",
+  "scripts": {
+    "start": "node ./src/server.js",
+    "pretest": "eslint ./src --fix",
+    "test": "echo \"Tests complete!\"",
+    "nodemon": "nodemon ./src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/not-phoeniix/430-http-api-assignment-ii.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/not-phoeniix/430-http-api-assignment-ii/issues"
+  },
+  "homepage": "https://github.com/not-phoeniix/430-http-api-assignment-ii#readme",
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.0.0",
+    "globals": "^17.3.0",
+    "nodemon": "^3.1.11"
+  }
+}
