@@ -10,7 +10,8 @@
         "imperative",
         "object-oriented"
       ],
-      "typing": "dynamic"
+      "typing": "dynamic",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/9/99/Unofficial_JavaScript_logo_2.svg"
     },
     {
       "name": "Python",
@@ -22,7 +23,8 @@
         "object-oriented",
         "structured"
       ],
-      "typing": "dynamic"
+      "typing": "dynamic",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/0/0a/Python.svg"
     },
     {
       "name": "Java",
@@ -33,7 +35,8 @@
         "object-oriented",
         "generic"
       ],
-      "typing": "static"
+      "typing": "static",
+      "logo": "https://upload.wikimedia.org/wikipedia/en/3/30/Java_programming_language_logo.svg"
     },
     {
       "name": "C++",
@@ -45,7 +48,8 @@
         "object-oriented",
         "generic"
       ],
-      "typing": "static"
+      "typing": "static",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/1/18/ISO_C%2B%2B_Logo.svg"
     },
     {
       "name": "C#",
@@ -59,7 +63,8 @@
         "functional",
         "generic"
       ],
-      "typing": "static"
+      "typing": "static",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/d/d2/C_Sharp_Logo_2023.svg"
     },
     {
       "name": "Ruby",
@@ -71,7 +76,8 @@
         "imperative",
         "functional"
       ],
-      "typing": "dynamic"
+      "typing": "dynamic",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/7/73/Ruby_logo.svg"
     },
     {
       "name": "Go",
@@ -83,7 +89,8 @@
         "imperative",
         "object-oriented"
       ],
-      "typing": "static"
+      "typing": "static",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/0/05/Go_Logo_Blue.svg"
     },
     {
       "name": "Rust",
@@ -96,7 +103,8 @@
         "imperative",
         "structured"
       ],
-      "typing": "static"
+      "typing": "static",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/d/d5/Rust_programming_language_black_logo.svg"
     },
     {
       "name": "Swift",
@@ -109,7 +117,8 @@
         "functional",
         "imperative"
       ],
-      "typing": "static"
+      "typing": "static",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/9/9d/Swift_logo.svg"
     },
     {
       "name": "Kotlin",
@@ -121,7 +130,8 @@
         "functional",
         "imperative"
       ],
-      "typing": "static"
+      "typing": "static",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/7/76/Kotlin_logo_%282025%29.svg"
     },
     {
       "name": "TypeScript",
@@ -133,7 +143,8 @@
         "imperative",
         "functional"
       ],
-      "typing": "static"
+      "typing": "static",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/f/f5/Typescript.svg"
     },
     {
       "name": "PHP",
@@ -145,7 +156,8 @@
         "object-oriented",
         "procedural"
       ],
-      "typing": "dynamic"
+      "typing": "dynamic",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/2/27/PHP-logo.svg"
     },
     {
       "name": "Scala",
@@ -157,7 +169,8 @@
         "functional",
         "object-oriented"
       ],
-      "typing": "static"
+      "typing": "static",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/3/39/Scala-full-color.svg"
     },
     {
       "name": "R",
@@ -170,7 +183,8 @@
         "imperative",
         "functional"
       ],
-      "typing": "dynamic"
+      "typing": "dynamic",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/1/1b/R_logo.svg"
     },
     {
       "name": "Perl",
@@ -182,7 +196,8 @@
         "imperative",
         "object-oriented"
       ],
-      "typing": "dynamic"
+      "typing": "dynamic",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/3/34/Perl-logo.svg"
     }
   ]
 }
