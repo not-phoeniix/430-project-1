@@ -60,40 +60,53 @@ async function searchLanguage(e) {
     handleResponse(res);
 }
 
-// async function addUser(e) {
-//     // ~~~ assemble body ~~~
+async function addLanguage(e) {
+    // ~~~ assemble body ~~~
 
-//     const bodyObj = {};
+    const bodyObj = {};
 
-//     const name = document.querySelector("#nameField").value;
-//     if (name) {
-//         bodyObj.name = name;
-//     }
+    const name = document.querySelector("#name-field").value;
+    if (name) {
+        bodyObj.name = name;
+    }
 
-//     const age = document.querySelector("#ageField").value;
-//     if (age) {
-//         bodyObj.age = Number(age);
-//     }
+    const year = document.querySelector("#year-field").value;
+    if (year) {
+        bodyObj.year = Number(year);
+    }
 
-//     const bodyStr = JSON.stringify(bodyObj);
+    const creator = document.querySelector("#creator-field").value;
+    if (creator) {
+        bodyObj.creator = creator;
+    }
 
-//     // ~~~ send fetch ~~~
+    const typing = document.querySelector("#typing-select").value;
+    if (typing) {
+        bodyObj.typing = typing;
+    }
 
-//     const url = e.target.getAttribute("action");
-//     const method = e.target.getAttribute("method");
+    bodyObj.paradigm = [];
+    bodyObj.logo = "  ";
 
-//     const res = await fetch(url, {
-//         method,
-//         body: bodyStr,
-//         headers: {
-//             "Content-Type": "application/json",
-//             "Content-Length": bodyStr.length,
-//             "Accept": "application/json"
-//         },
-//     });
+    const bodyStr = JSON.stringify(bodyObj);
 
-//     handleResponse(res);
-// }
+    // ~~~ send fetch ~~~
+
+    const url = e.target.getAttribute("action");
+    const method = e.target.getAttribute("method");
+
+    const res = await fetch(url, {
+        method,
+        body: bodyStr,
+        headers: {
+            "Content-Type": "application/json",
+            "Content-Length": bodyStr.length,
+            "Accept": "application/json"
+        },
+    });
+
+    handleResponse(res);
+}
 
 function init() {
     const languageForm = document.querySelector("#get-languages-form");
@@ -107,6 +120,13 @@ function init() {
     languageSearchForm.addEventListener("submit", (e) => {
         e.preventDefault();
         searchLanguage(e);
+        return false;
+    });
+
+    const languageAddForm = document.querySelector("#add-language-form");
+    languageAddForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        addLanguage(e);
         return false;
     });
 

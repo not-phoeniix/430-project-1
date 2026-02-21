@@ -56,18 +56,10 @@ function getLanguage(req, res) {
 }
 
 function addLanguage(req, res, body) {
-    if (req.method !== "POST") {
-        respond(req, res, 405, {
-            message: "Non-POST method not allowed!",
-            id: "addLanguageMethodInvalid"
-        });
-        return;
-    }
+    const { name, year, creator, paradigm, typing, logo } = body;
 
-    const { name, year, creator, paradigm, typing } = body;
-
-    let content = {};
-    let status = 500;
+    let content;
+    let status;
 
     let missingArgs = [];
     if (!name) missingArgs.push("name");
@@ -75,6 +67,7 @@ function addLanguage(req, res, body) {
     if (!creator) missingArgs.push("creator");
     if (!paradigm) missingArgs.push("paradigm");
     if (!typing) missingArgs.push("typing");
+    if (!logo) missingArgs.push("logo");
 
     if (missingArgs.length > 0) {
         content = {
@@ -83,37 +76,37 @@ function addLanguage(req, res, body) {
         };
         status = 400;
     } else {
-        const existingData = data.languages.find(lang => lang.name === name);
-        if (!existingData) {
+        const existingIndex = data.languages.findIndex(lang => lang.name.toLowerCase() === name.toLowerCase());
+        if (existingIndex === -1) {
+            // add a new language to array
             data.languages.push({
                 name,
                 year,
                 creator,
                 paradigm,
-                typing
+                typing,
+                logo
             });
 
             content = {
                 message: "Created successfully!"
             };
             status = 201;
+        } else {
+            // overwrite data
+            data.languages[existingIndex] = {
+                ...data.languages[existingIndex],
+                year,
+                creator,
+                paradigm,
+                typing,
+                logo
+            };
+
+            // just return a status code, there's no content
+            status = 204;
         }
     }
-
-    // // update an existing user
-    // if (name && users[name] && age !== undefined) {
-    //     users[name].age = age;
-    //     status = 204;
-    //     response = undefined;
-    // }
-
-    // // create a new user
-    // if (name && !users[name] && age !== undefined) {
-    //     users[name] = { name, age };
-    //     status = 201;
-    //     response.message = "Created successfully!";
-    //     response.id = undefined;
-    // }
 
     respond(req, res, status, content);
 }

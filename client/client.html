@@ -14,13 +14,24 @@
   <section id="top">
     <h3>Programming Language API</h3>
 
-    <!-- <form id="add-language-form" action="/addLanguage" method="post">
+    <form id="add-language-form" action="/addLanguage" method="post">
       <label for="name">Name: </label>
       <input id="name-field" type="text" name="name" />
-      <label for="age">Age: </label>
-      <input id="age-field" type="number" name="age" min="0" max="000" step="1" />
-      <input type="submit" value="Add User" />
-    </form> -->
+
+      <label for="year">Year: </label>
+      <input id="year-field" type="number" name="year" step="1" />
+
+      <label for="creator">Creator: </label>
+      <input id="creator-field" type="text" name="creator" />
+
+      <label for="typing">Typing: </label>
+      <select id="typing-select" name="typing">
+        <option value="static">Static</option>
+        <option value="dynamic">Dynamic</option>
+      </select>
+
+      <input type="submit" value="Add Language" />
+    </form>
 
     <form id="get-languages-form" action="/getAllLanguages" method="get">
       <select id='url-field'>
