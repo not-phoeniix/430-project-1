@@ -11,6 +11,7 @@ const routes = {
     "/getAllLanguages": apiHandler.getAllLanguages,
     "/getLanguage": apiHandler.getLanguage,
     "/addLanguage": apiHandler.addLanguage,
+    "/addRating": apiHandler.addRating,
     notFound: apiHandler.notFound
 };
 
