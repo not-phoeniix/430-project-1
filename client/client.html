@@ -16,16 +16,16 @@
 
     <form id="add-language-form" action="/addLanguage" method="post">
       <label for="name">Name: </label>
-      <input id="name-field" type="text" name="name" />
+      <input class="name-field" type="text" name="name" />
 
       <label for="year">Year: </label>
-      <input id="year-field" type="number" name="year" step="1" />
+      <input class="year-field" type="number" name="year" step="1" />
 
       <label for="creator">Creator: </label>
-      <input id="creator-field" type="text" name="creator" />
+      <input class="creator-field" type="text" name="creator" />
 
       <label for="typing">Typing: </label>
-      <select id="typing-select" name="typing">
+      <select class="typing-select" name="typing">
         <option value="static">Static</option>
         <option value="dynamic">Dynamic</option>
       </select>
@@ -33,12 +33,25 @@
       <input type="submit" value="Add Language" />
     </form>
 
+    <form id="add-rating-form" action="/addRating" method="post">
+      <label for="name">Name: </label>
+      <input class="name-field" type="text" name="name" />
+
+      <label for="rating">Rating: </label>
+      <input class="rating-field" type="number" min="1" max="5" name="rating" step="1" />
+
+      <label for="comment">Comment: </label>
+      <input class="comment-field" type="text" name="comment" />
+
+      <input type="submit" value="Add Rating" />
+    </form>
+
     <form id="get-languages-form" action="/getAllLanguages" method="get">
-      <select id='url-field'>
+      <select class='url-field'>
         <option value='/getAllLanguages'>/getAllLanguages</option>
         <option value='/notReal'>/notReal</option>
       </select>
-      <select id="method-select">
+      <select class="method-select">
         <option value="get">GET</option>
         <option value="head">HEAD</option>
       </select>
@@ -46,8 +59,8 @@
     </form>
 
     <form id="search-language-form" action="/getLanguage" method="get">
-      <label for="language-name">Search Language:</label>
-      <input id="language-name-textbox" type="text" name="language-name">
+      <label for="name">Search Language:</label>
+      <input class="name-field" type="text" name="name">
       <input type="submit" value="Search" />
     </form>
 

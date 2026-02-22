@@ -1,32 +1,46 @@
+async function formFetch({ form, method, queryParams, bodyObj, callback }) {
+    const url = form.getAttribute("action");
+    if (!method) method = form.getAttribute("method");
+
+    let queryAppend = "";
+    if (queryParams) {
+        queryAppend = "?";
+        for (const param in queryParams) {
+            const value = encodeURIComponent(queryParams[param]);
+            queryAppend += `${param}=${value}`;
+        }
+    }
+
+    let bodyStr = undefined;
+    if (bodyObj) {
+        bodyStr = JSON.stringify(bodyObj);
+    }
+
+    const requestData = { method };
+    if (bodyStr) {
+        requestData.body = bodyStr;
+        requestData.headers = {
+            "Content-Type": "application/json",
+            "Content-Length": bodyStr.length,
+            "Accept": "application/json"
+        };
+    }
+
+    const res = await fetch(url + queryAppend, requestData);
+
+    callback(res);
+}
+
 async function handleResponse(res) {
     const content = document.querySelector("#content");
 
-    switch (res.status) {
-        case 200:
-            content.innerHTML = "<p><b>Success!</b></p>"
-            break;
-        case 201:
-            content.innerHTML = "<p><b>Created!</b></p>"
-            break;
-        case 204:
-            content.innerHTML = "<p><b>Updated! (no content)</b></p>";
-            break;
-        case 400:
-            content.innerHTML = "<p><b>Bad request!</b></p>";
-            break;
-        case 404:
-            content.innerHTML = "<p><b>Not found!</b></p>";
-            break;
-        default:
-            content.innerHTML = `<p><b>Error code ${res.status} not implemented by client!</b></p>`;
-            break;
-    }
+    content.innerHTML = `<p><b>${res.statusText}</b></p>`;
 
     const txt = await res.text();
     console.log(`RESPONSE TEXT: ${txt}`);
 
     if (txt) {
-        content.innerHTML = txt;
+        content.innerHTML += txt;
 
         // const data = JSON.parse(txt);
 
@@ -40,47 +54,45 @@ async function handleResponse(res) {
     }
 }
 
-async function fetchLanguages(e) {
-    const url = document.querySelector("#url-field").value;
-    const method = document.querySelector("#method-select").value;
-
-    const res = await fetch(url, { method });
-
-    handleResponse(res);
+function fetchAllLanguages(form) {
+    const method = form.querySelector(".method-select").value;
+    formFetch({
+        form,
+        method,
+        callback: handleResponse
+    });
 }
 
-async function searchLanguage(e) {
-    const url = e.target.getAttribute("action");
-    const method = e.target.getAttribute("method");
-
-    const name = document.querySelector("#language-name-textbox").value;
-
-    const res = await fetch(url + `?name=${name}`, { method });
-
-    handleResponse(res);
+function searchLanguage(form) {
+    const name = form.querySelector(".name-field").value;
+    formFetch({
+        form,
+        queryParams: { name },
+        callback: handleResponse
+    });
 }
 
-async function addLanguage(e) {
+function addLanguage(form) {
     // ~~~ assemble body ~~~
 
     const bodyObj = {};
 
-    const name = document.querySelector("#name-field").value;
+    const name = form.querySelector(".name-field").value;
     if (name) {
         bodyObj.name = name;
     }
 
-    const year = document.querySelector("#year-field").value;
+    const year = form.querySelector(".year-field").value;
     if (year) {
         bodyObj.year = Number(year);
     }
 
-    const creator = document.querySelector("#creator-field").value;
+    const creator = form.querySelector(".creator-field").value;
     if (creator) {
         bodyObj.creator = creator;
     }
 
-    const typing = document.querySelector("#typing-select").value;
+    const typing = form.querySelector(".typing-select").value;
     if (typing) {
         bodyObj.typing = typing;
     }
@@ -88,54 +100,60 @@ async function addLanguage(e) {
     bodyObj.paradigm = [];
     bodyObj.logo = "  ";
 
-    const bodyStr = JSON.stringify(bodyObj);
 
     // ~~~ send fetch ~~~
 
-    const url = e.target.getAttribute("action");
-    const method = e.target.getAttribute("method");
+    // const bodyStr = JSON.stringify(bodyObj);
 
-    const res = await fetch(url, {
-        method,
-        body: bodyStr,
-        headers: {
-            "Content-Type": "application/json",
-            "Content-Length": bodyStr.length,
-            "Accept": "application/json"
-        },
+    // const url = form.getAttribute("action");
+    // const method = form.getAttribute("method");
+
+    // const res = await fetch(url, {
+    //     method,
+    //     body: bodyStr,
+    //     headers: {
+    //         "Content-Type": "application/json",
+    //         "Content-Length": bodyStr.length,
+    //         "Accept": "application/json"
+    //     },
+    // });
+
+    formFetch({
+        form,
+        queryParams: { name },
+        callback: handleResponse
     });
+}
 
-    handleResponse(res);
+function addRating(form) {
+    const name = form.querySelector(".name-field").value;
+    const score = Number(form.querySelector(".rating-field").value);
+    const comment = form.querySelector(".comment-field").value;
+
+    formFetch({
+        form,
+        bodyObj: {
+            name,
+            rating: { score, comment }
+        },
+        callback: handleResponse
+    });
 }
 
 function init() {
-    const languageForm = document.querySelector("#get-languages-form");
-    languageForm.addEventListener("submit", (e) => {
-        e.preventDefault();
-        fetchLanguages(e);
-        return false;
-    });
+    function setupForm(selector, callback) {
+        const form = document.querySelector(selector);
+        form.addEventListener("submit", (e) => {
+            e.preventDefault();
+            callback(e.target);
+            return false;
+        });
+    }
 
-    const languageSearchForm = document.querySelector("#search-language-form");
-    languageSearchForm.addEventListener("submit", (e) => {
-        e.preventDefault();
-        searchLanguage(e);
-        return false;
-    });
-
-    const languageAddForm = document.querySelector("#add-language-form");
-    languageAddForm.addEventListener("submit", (e) => {
-        e.preventDefault();
-        addLanguage(e);
-        return false;
-    });
-
-    // const userForm = document.querySelector("#userForm");
-    // userForm.addEventListener("submit", (e) => {
-    //     e.preventDefault();
-    //     fetchUsers(e);
-    //     return false;
-    // });
+    setupForm("#get-languages-form", fetchAllLanguages);
+    setupForm("#search-language-form", searchLanguage);
+    setupForm("#add-language-form", addLanguage);
+    setupForm("#add-rating-form", addRating);
 }
 
 document.addEventListener("DOMContentLoaded", init);
