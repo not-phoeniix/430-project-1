@@ -8,10 +8,13 @@ const routes = {
     "/": clientHandler.serveIndex,
     "/style.css": clientHandler.serveStyle,
     "/client.js": clientHandler.serveScript,
-    "/getAllLanguages": apiHandler.getAllLanguages,
-    "/getLanguage": apiHandler.getLanguage,
-    "/addLanguage": apiHandler.addLanguage,
-    "/addRating": apiHandler.addRating,
+    "/api/getAllLanguages": apiHandler.getAllLanguages,
+    "/api/getAllLanguageNames": apiHandler.getAllLanguageNames,
+    "/api/getLanguage": apiHandler.getLanguage,
+    "/api/getAllRatings": apiHandler.getAllRatings,
+    "/api/getRating": apiHandler.getRating,
+    "/api/addLanguage": apiHandler.addLanguage,
+    "/api/addRating": apiHandler.addRating,
     notFound: apiHandler.notFound
 };
 

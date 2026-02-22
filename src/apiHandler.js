@@ -1,4 +1,5 @@
 const data = require("./dataset.json");
+data.ratings = [];
 
 /**
  * Sends an API response with JSON data
@@ -62,13 +63,10 @@ function checkAndRespondMissingParams(body, requiredParams, req, res, errorRespo
  * @param {Response} res Response to client
  */
 function notFound(req, res) {
-    const status = 404;
-    const content = {
+    respond(req, res, 404, {
         message: "The page you are looking for was not found",
         id: "notFound"
-    };
-
-    respond(req, res, status, content);
+    });
 }
 
 /**
@@ -78,8 +76,17 @@ function notFound(req, res) {
  * @param {Response} res Response to client
  */
 function getAllLanguages(req, res) {
-    const status = 200;
-    respond(req, res, status, data.languages);
+    respond(req, res, 200, data.languages);
+}
+
+/**
+ * A GET response that responds with an array of the names 
+ * of all currently stored languages, always uses code 200
+ * @param {Request} req Request from client
+ * @param {Response} res Response to client
+ */
+function getAllLanguageNames(req, res) {
+    respond(req, res, 200, data.languages.map(lang => lang.name));
 }
 
 /**
@@ -90,11 +97,22 @@ function getAllLanguages(req, res) {
  * @param {Response} res Response to client
  */
 function getLanguage(req, res) {
+    const { name } = req.query;
+
+    // ~~~ error checking ~~~
+
+    if (!name) {
+        respond(req, res, 400, {
+            message: "Missing required query paramter: 'name'",
+            id: "getLanguageInvalidParameters"
+        });
+        return;
+    }
+
+    // ~~~ data handling ~~~
+
     let content;
     let status;
-
-    // TODO: add a 400 bad request status if name query parameter was never specified
-    const { name } = req.query;
 
     const language = data.languages.find(
         (lang) => lang.name.toLowerCase() === name.toLowerCase()
@@ -107,6 +125,58 @@ function getLanguage(req, res) {
         status = 404;
     } else {
         content = language;
+        status = 200;
+    }
+
+    respond(req, res, status, content);
+}
+
+/**
+ * A GET response that responds with all currently
+ * stored rating data on all languages
+ * @param {Request} req Request from client
+ * @param {Response} res Response to client
+ */
+function getAllRatings(req, res) {
+    respond(req, res, 200, data.ratings);
+}
+
+/**
+ * A GET response that searches dataset via the "language" query parameter
+ * (case insensitive) and responds with individual rating data.
+ * Responds with code 200 if found and 404 if not found.
+ * @param {Request} req Request from client
+ * @param {Response} res Response to client
+ */
+function getRating(req, res) {
+    const { language } = req.query;
+
+    // ~~~ error checking ~~~
+
+    if (!language) {
+        respond(req, res, 400, {
+            message: "Missing required query paramter: 'language'",
+            id: "getRatingInvalidParameters"
+        });
+        return;
+    }
+
+    // ~~~ data handling ~~~
+
+    let content;
+    let status;
+
+    const rating = data.ratings.find(
+        (rating) => rating.language.toLowerCase() === language.toLowerCase()
+    );
+    if (!rating) {
+        content = {
+            message: `Rating for '${language}' not found!`,
+            id: "getRatingNotFound"
+        };
+        status = 404;
+    } else {
+        content = rating;
         status = 200;
     }
 
@@ -129,16 +199,19 @@ function getLanguage(req, res) {
  * }} body Request body from the client
  */
 function addLanguage(req, res, body) {
-    const paramsValid = checkAndRespondMissingParams(
+    const { name, year, creator, paradigm, typing, logo } = body;
+
+    // ~~~ error checking ~~~
+
+    if (!checkAndRespondMissingParams(
         body,
         ["name", "year", "creator", "paradigm", "typing", "logo"],
         req,
         res,
         "addLanguageMissingParams"
-    );
-    if (!paramsValid) return;
+    )) return;
 
-    const { name, year, creator, paradigm, typing, logo } = body;
+    // ~~~ data handling ~~~
 
     let content;
     let status;
@@ -181,51 +254,66 @@ function addLanguage(req, res, body) {
 }
 
 /**
- * A POST response that adds a rating to a language in the dataset.
- * @param {Request} req 
- * @param {Response} res 
+ * A POST response that adds a rating to the ratings portion of the data.
+ * @param {Request} req Request from client
+ * @param {Response} res Response to client
  * @param {{
  *  name: string;
- *  rating: {
- *    score: number;
- *    comment: string;
- *  }
- * }} body 
+ *  score: number;
+ *  comment: string;
+ * }} body Request body from the client
  */
 function addRating(req, res, body) {
-    let paramsValid = checkAndRespondMissingParams(
+    const { language, score, comment } = body;
+
+    // ~~~ error checking ~~~
+
+    if (!checkAndRespondMissingParams(
         body,
-        ["name", "rating"],
+        ["language", "score", "comment"],
         req,
         res,
         "addRatingMissingParams"
-    );
-    if (!paramsValid) return;
+    )) return;
 
-    const { name, rating } = body;
+    // ~~~ data handling ~~~
 
     let status;
     let content;
 
-    const langIdx = data.languages.findIndex(
-        (lang) => lang.name.toLowerCase() === name.toLowerCase()
+    const langObj = data.languages.find(
+        (lang) => lang.name.toLowerCase() === language.toLowerCase()
     );
 
-    if (langIdx === -1) {
+    if (!langObj) {
         content = {
-            message: `Language '${name}' not found, cannot add rating!`,
+            message: `Language '${language}' not found in dataset, cannot add rating!`,
             id: "addRatingLangNotFound"
         };
         status = 404;
 
     } else {
-        data.languages[langIdx].rating = {
-            score: rating.score,
-            comment: rating.comment
+        const ratingIdx = data.ratings.findIndex(rating => rating.language === langObj.name);
+
+        const newRatingData = {
+            language: langObj.name,
+            score,
+            comment,
         };
 
-        // no content when updating data
-        status = 204;
+        if (ratingIdx !== -1) {
+            data.ratings[ratingIdx] = newRatingData;
+
+            // no content when updating data
+            status = 204;
+        } else {
+            data.ratings.push(newRatingData);
+
+            content = {
+                message: "Created successfully!"
+            };
+            status = 201;
+        }
     }
 
     respond(req, res, status, content);
@@ -234,7 +322,10 @@ function addRating(req, res, body) {
 module.exports = {
     notFound,
     getAllLanguages,
+    getAllLanguageNames,
     getLanguage,
+    getAllRatings,
+    getRating,
     addLanguage,
     addRating
 }
