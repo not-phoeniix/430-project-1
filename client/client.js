@@ -1,5 +1,5 @@
-async function formFetch({ form, method, queryParams, bodyObj, callback }) {
-    const url = form.getAttribute("action");
+async function formFetch({ form, url, method, queryParams, bodyObj, callback }) {
+    if (!url) url = form.getAttribute("action");
     if (!method) method = form.getAttribute("method");
 
     let queryAppend = "";
@@ -54,20 +54,28 @@ async function handleResponse(res) {
     }
 }
 
-function fetchAllLanguages(form) {
+function dataFetch(form) {
+    const url = form.querySelector(".url-select").value;
     const method = form.querySelector(".method-select").value;
     formFetch({
         form,
+        url,
         method,
         callback: handleResponse
     });
 }
 
-function searchLanguage(form) {
-    const name = form.querySelector(".name-field").value;
+function dataSearch(form) {
+    const [url, term] = form.querySelector(".url-select").value.split(";");
+    const termValue = form.querySelector(".term-field").value;
+
+    const queryParams = {};
+    queryParams[term] = termValue;
+
     formFetch({
         form,
-        queryParams: { name },
+        url,
+        queryParams,
         callback: handleResponse
     });
 }
@@ -97,30 +105,19 @@ function addLanguage(form) {
         bodyObj.typing = typing;
     }
 
-    bodyObj.paradigm = [];
-    bodyObj.logo = "  ";
+    const paradigm = form.querySelector(".paradigm-field").value
+    if (paradigm) {
+        bodyObj.paradigm = paradigm.split(",").map(p => p.trim());
+    }
 
-
-    // ~~~ send fetch ~~~
-
-    // const bodyStr = JSON.stringify(bodyObj);
-
-    // const url = form.getAttribute("action");
-    // const method = form.getAttribute("method");
-
-    // const res = await fetch(url, {
-    //     method,
-    //     body: bodyStr,
-    //     headers: {
-    //         "Content-Type": "application/json",
-    //         "Content-Length": bodyStr.length,
-    //         "Accept": "application/json"
-    //     },
-    // });
+    const logo = form.querySelector(".logo-field").value
+    if (logo) {
+        bodyObj.logo = logo;
+    }
 
     formFetch({
         form,
-        queryParams: { name },
+        bodyObj,
         callback: handleResponse
     });
 }
@@ -133,8 +130,9 @@ function addRating(form) {
     formFetch({
         form,
         bodyObj: {
-            name,
-            rating: { score, comment }
+            language: name,
+            score,
+            comment
         },
         callback: handleResponse
     });
@@ -150,8 +148,8 @@ function init() {
         });
     }
 
-    setupForm("#get-languages-form", fetchAllLanguages);
-    setupForm("#search-language-form", searchLanguage);
+    setupForm("#get-data-form", dataFetch);
+    setupForm("#search-data-form", dataSearch);
     setupForm("#add-language-form", addLanguage);
     setupForm("#add-rating-form", addRating);
 }

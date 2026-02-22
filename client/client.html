@@ -14,42 +14,62 @@
   <section id="top">
     <h3>Programming Language API</h3>
 
-    <form id="add-language-form" action="/addLanguage" method="post">
+    <h4>Add Language</h4>
+    <form id="add-language-form" action="/api/addLanguage" method="post">
       <label for="name">Name: </label>
       <input class="name-field" type="text" name="name" />
+      <br>
 
       <label for="year">Year: </label>
       <input class="year-field" type="number" name="year" step="1" />
+      <br>
 
       <label for="creator">Creator: </label>
       <input class="creator-field" type="text" name="creator" />
+      <br>
+
+      <label for="paradigm">Paradigms (CSV): </label>
+      <input class="paradigm-field" type="text" name="paradigm" />
+      <br>
+
+      <label for="logo">Logo: </label>
+      <input class="logo-field" type="text" name="logo" />
+      <br>
 
       <label for="typing">Typing: </label>
       <select class="typing-select" name="typing">
         <option value="static">Static</option>
         <option value="dynamic">Dynamic</option>
       </select>
+      <br>
 
       <input type="submit" value="Add Language" />
     </form>
 
-    <form id="add-rating-form" action="/addRating" method="post">
+    <h4>Add Rating</h4>
+    <form id="add-rating-form" action="/api/addRating" method="post">
       <label for="name">Name: </label>
       <input class="name-field" type="text" name="name" />
+      <br>
 
       <label for="rating">Rating: </label>
       <input class="rating-field" type="number" min="1" max="5" name="rating" step="1" />
+      <br>
 
       <label for="comment">Comment: </label>
       <input class="comment-field" type="text" name="comment" />
+      <br>
 
       <input type="submit" value="Add Rating" />
     </form>
 
-    <form id="get-languages-form" action="/getAllLanguages" method="get">
-      <select class='url-field'>
-        <option value='/getAllLanguages'>/getAllLanguages</option>
-        <option value='/notReal'>/notReal</option>
+    <h4>Get Data</h4>
+    <form id="get-data-form" action="/api/getAllLanguages" method="get">
+      <select class='url-select'>
+        <option value='/api/getAllLanguages'>/getAllLanguages</option>
+        <option value='/api/getAllLanguageNames'>/getAllLanguageNames</option>
+        <option value='/api/getAllRatings'>/getAllRatings</option>
+        <option value='/api/notReal'>/notReal</option>
       </select>
       <select class="method-select">
         <option value="get">GET</option>
@@ -58,9 +78,16 @@
       <input type="submit" value="Send" />
     </form>
 
-    <form id="search-language-form" action="/getLanguage" method="get">
-      <label for="name">Search Language:</label>
-      <input class="name-field" type="text" name="name">
+    <h4>Search Data</h4>
+    <form id="search-data-form" action="/api/getLanguage" method="get">
+      <label for="term">Search Term:</label>
+      <input class="term-field" type="text" name="term">
+
+      <select class='url-select'>
+        <option value='/api/getLanguage;name'>/getLanguage</option>
+        <option value='/api/getRating;language'>/getRating</option>
+      </select>
+
       <input type="submit" value="Search" />
     </form>
 
