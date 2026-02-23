@@ -1,3 +1,5 @@
 # API routes
 
-`/waow`: does a thing
+TODO: documentation on routes
+
+`/api/exampleRoute`: does a thing
