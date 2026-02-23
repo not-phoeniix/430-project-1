@@ -58,18 +58,6 @@ function checkAndRespondMissingParams(body, requiredParams, req, res, errorRespo
 }
 
 /**
- * Responds with a 404 not found message
- * @param {Request} req Request from client
- * @param {Response} res Response to client
- */
-function notFound(req, res) {
-    respond(req, res, 404, {
-        message: "The page you are looking for was not found",
-        id: "notFound"
-    });
-}
-
-/**
  * A GET response that responds with all currently stored 
  * language data, always uses code 200
  * @param {Request} req Request from client
@@ -320,7 +308,7 @@ function addRating(req, res, body) {
 }
 
 module.exports = {
-    notFound,
+    respond,
     getAllLanguages,
     getAllLanguageNames,
     getLanguage,
