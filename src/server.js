@@ -92,7 +92,7 @@ async function onRequest(req, res) {
             route(req, res);
         }
     } catch (err) {
-        handleError(err);
+        handleError(req, res, err);
     }
 }
 
