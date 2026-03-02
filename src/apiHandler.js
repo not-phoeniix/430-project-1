@@ -9,8 +9,9 @@ data.ratings = [];
  * @param {Object | undefined} content Optional content object to write in body of response
  */
 function respond(req, res, status, content) {
+    // HEAD requests, empty content, and update codes (204) don't get a response body
     let str = undefined;
-    if (content) {
+    if (content && req.method !== "HEAD" && status !== 204) {
         str = JSON.stringify(content);
     }
 
@@ -19,8 +20,7 @@ function respond(req, res, status, content) {
         "Content-Length": str ? Buffer.byteLength(str, "utf8") : 0
     });
 
-    // HEAD requests, empty content, and update codes (204) don't get a response body
-    if (str !== undefined && req.method !== "HEAD" && status !== 204) {
+    if (str !== undefined) {
         res.write(str);
     }
 

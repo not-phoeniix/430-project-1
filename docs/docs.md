@@ -1,16 +1,20 @@
-# Programming Language API Documentation
+# Programming Language API Docs
 
 ## Endpoints
 
-### /api/getAllLanguages - `GET`, `HEAD`
-**Returns**
+<a href="getAllLanguages.html">/api/getAllLanguages</a> - `GET`, `HEAD`
 
-A JSON array of all languages stored.
+<a href="getAllLanguageNames.html">/api/getAllLanguageNames</a> - `GET`, `HEAD`
 
-Format: `[{name: string, year: number, creator: string, paradigm: [string], typing: string, logo: string}]`
+<a href="getAllRatings.html">/api/getLanguage</a> - `GET`, `HEAD`
 
-**Example**
+<a href="getLanguage.html">/api/getLanguage</a> - `GET`, `HEAD`
 
+<a href="getRating.html">/api/getRating</a> - `GET`, `HEAD`
+
+<a href="addLanguage.html">/api/addLanguage</a> - `POST`
+
+<a href="addRating.html">/api/addRating</a> - `POST`
 
 ## Credits
 This API's dataset was acquired from: <a href="https://jsonlint.com/datasets/programming-languages">https://jsonlint.com/datasets/programming-languages</a>

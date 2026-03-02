@@ -8,7 +8,6 @@ const PORT = process.env.PORT || process.env.NODE_PORT || 3000;
 
 const routes = {
     "/": clientHandler.serveIndex,
-    "/docs.html": clientHandler.serveDocs,
     "/style.css": clientHandler.serveStyle,
     "/client.js": clientHandler.serveScript,
     "/api/getAllLanguages": apiHandler.getAllLanguages,
@@ -19,6 +18,21 @@ const routes = {
     "/api/addLanguage": apiHandler.addLanguage,
     "/api/addRating": apiHandler.addRating,
 };
+
+function getRoute(pathname) {
+    let route;
+    if (pathname.startsWith("/docs/")) {
+        route = (req, res) => clientHandler.serveDocs(
+            req,
+            res,
+            pathname
+        );
+    } else {
+        route = routes[pathname];
+    }
+
+    return route;
+}
 
 /**
  * Takes an incoming request, collects and waits for all 
@@ -79,7 +93,7 @@ async function onRequest(req, res) {
     req.query = Object.fromEntries(url.searchParams);
     req.acceptedTypes = req.headers.Accept?.split(",") ?? [];
 
-    const route = routes[url.pathname];
+    const route = getRoute(url.pathname);
     if (!route) {
         handleError(req, res, Errors.NOT_FOUND);
         return;

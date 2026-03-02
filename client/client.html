@@ -14,94 +14,101 @@
   <nav>
     <span class="nav-item nav-title">Project 01</span>
     <a class="nav-item" href="./">App</a>
-    <a class="nav-item" href="./docs.html">Docs</a>
+    <a class="nav-item" href="./docs/docs.html">Docs</a>
   </nav>
 
-  <section id="top">
+  <main>
     <h1>Programming Language API Test Application</h1>
 
-    <h4>Add Language</h4>
-    <form id="add-language-form" action="/api/addLanguage" method="post">
-      <label for="name">Name: </label>
-      <input class="name-field" type="text" name="name" />
-      <br>
+    <section id="flex-columns">
+      <section class="column">
+        <h2>Endpoints</h2>
 
-      <label for="year">Year: </label>
-      <input class="year-field" type="number" name="year" step="1" />
-      <br>
+        <h3>Add Language</h3>
+        <form id="add-language-form" action="/api/addLanguage" method="post">
+          <label for="name">Name: </label>
+          <input class="name-field" type="text" name="name" />
+          <br>
 
-      <label for="creator">Creator: </label>
-      <input class="creator-field" type="text" name="creator" />
-      <br>
+          <label for="year">Year: </label>
+          <input class="year-field" type="number" name="year" step="1" />
+          <br>
 
-      <label for="paradigm">Paradigms (CSV): </label>
-      <input class="paradigm-field" type="text" name="paradigm" />
-      <br>
+          <label for="creator">Creator: </label>
+          <input class="creator-field" type="text" name="creator" />
+          <br>
 
-      <label for="logo">Logo: </label>
-      <input class="logo-field" type="text" name="logo" />
-      <br>
+          <label for="paradigm">Paradigms (CSV): </label>
+          <input class="paradigm-field" type="text" name="paradigm" />
+          <br>
 
-      <label for="typing">Typing: </label>
-      <select class="typing-select" name="typing">
-        <option value="static">Static</option>
-        <option value="dynamic">Dynamic</option>
-      </select>
-      <br>
+          <label for="logo">Logo: </label>
+          <input class="logo-field" type="text" name="logo" />
+          <br>
 
-      <input type="submit" value="Add Language" />
-    </form>
+          <label for="typing">Typing: </label>
+          <select class="typing-select" name="typing">
+            <option value="static">Static</option>
+            <option value="dynamic">Dynamic</option>
+          </select>
+          <br>
 
-    <h4>Add Rating</h4>
-    <form id="add-rating-form" action="/api/addRating" method="post">
-      <label for="name">Name: </label>
-      <input class="name-field" type="text" name="name" />
-      <br>
+          <input type="submit" value="Add Language" />
+        </form>
 
-      <label for="rating">Rating: </label>
-      <input class="rating-field" type="number" min="1" max="5" name="rating" step="1" />
-      <br>
+        <h3>Add Rating</h3>
+        <form id="add-rating-form" action="/api/addRating" method="post">
+          <label for="name">Name: </label>
+          <input class="name-field" type="text" name="name" />
+          <br>
 
-      <label for="comment">Comment: </label>
-      <input class="comment-field" type="text" name="comment" />
-      <br>
+          <label for="rating">Rating: </label>
+          <input class="rating-field" type="number" min="1" max="5" name="rating" step="1" />
+          <br>
 
-      <input type="submit" value="Add Rating" />
-    </form>
+          <label for="comment">Comment: </label>
+          <input class="comment-field" type="text" name="comment" />
+          <br>
 
-    <h4>Get Data</h4>
-    <form id="get-data-form" action="/api/getAllLanguages" method="get">
-      <select class='url-select'>
-        <option value='/api/getAllLanguages'>/api/getAllLanguages</option>
-        <option value='/api/getAllLanguageNames'>/api/getAllLanguageNames</option>
-        <option value='/api/getAllRatings'>/api/getAllRatings</option>
-        <option value='/api/notReal'>/api/notReal</option>
-      </select>
-      <select class="method-select">
-        <option value="get">GET</option>
-        <option value="head">HEAD</option>
-      </select>
-      <input type="submit" value="Send" />
-    </form>
+          <input type="submit" value="Add Rating" />
+        </form>
 
-    <h4>Search Data</h4>
-    <form id="search-data-form" action="/api/getLanguage" method="get">
-      <label for="term">Search Term:</label>
-      <input class="term-field" type="text" name="term">
+        <h3>Get Data</h3>
+        <form id="get-data-form" action="/api/getAllLanguages" method="get">
+          <select class='url-select'>
+            <option value='/api/getAllLanguages'>/api/getAllLanguages</option>
+            <option value='/api/getAllLanguageNames'>/api/getAllLanguageNames</option>
+            <option value='/api/getAllRatings'>/api/getAllRatings</option>
+            <option value='/api/notReal'>/api/notReal</option>
+          </select>
+          <select class="method-select">
+            <option value="get">GET</option>
+            <option value="head">HEAD</option>
+          </select>
+          <input type="submit" value="Send" />
+        </form>
 
-      <select class='url-select'>
-        <option value='/api/getLanguage;name'>/api/getLanguage</option>
-        <option value='/api/getRating;language'>/api/getRating</option>
-      </select>
+        <h3>Search Data</h3>
+        <form id="search-data-form" action="/api/getLanguage" method="get">
+          <label for="term">Search Term:</label>
+          <input class="term-field" type="text" name="term">
 
-      <input type="submit" value="Search" />
-    </form>
+          <select class='url-select'>
+            <option value='/api/getLanguage;name'>/api/getLanguage</option>
+            <option value='/api/getRating;language'>/api/getRating</option>
+          </select>
 
-  </section>
+          <input type="submit" value="Search" />
+        </form>
+      </section>
 
-  <section id="content">
-    <div class="server-response"></div>
-  </section>
+      <section class="column">
+        <h2>Server Response:</h2>
+        <div class="server-response"></div>
+      </section>
+    </section>
+
+  </main>
 </body>
 
 </html>

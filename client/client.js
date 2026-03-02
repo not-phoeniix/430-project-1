@@ -32,25 +32,19 @@ async function formFetch({ form, url, method, queryParams, bodyObj, callback }) 
 }
 
 async function handleResponse(res) {
-    const content = document.querySelector("#content");
+    const serverResponse = document.querySelector(".server-response");
 
-    content.innerHTML = `<p><b>${res.statusText}</b></p>`;
+    serverResponse.innerHTML = "";
+    serverResponse.innerHTML += `Status: <b>${res.status}</b>`;
+    serverResponse.innerHTML += "<br>";
+    serverResponse.innerHTML += `Content-Length: <b>${res.headers.get("Content-Length")}</b>`;
+    serverResponse.innerHTML += `<br><br>`;
 
     const txt = await res.text();
     console.log(`RESPONSE TEXT: ${txt}`);
 
     if (txt) {
-        content.innerHTML += txt;
-
-        // const data = JSON.parse(txt);
-
-        // if (data.users) {
-        //     content.innerHTML += `<p>${JSON.stringify(data.users)}</p>`;
-        // }
-
-        // if (data.message) {
-        //     content.innerHTML += `<p>Message: ${data.message}</p>`;
-        // }
+        serverResponse.innerHTML += txt;
     }
 }
 

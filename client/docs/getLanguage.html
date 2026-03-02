@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/style.css">
+    <title>getLanguage</title>
+</head>
+
+<body>
+<nav>
+    <span class="nav-item">Project 01</span>
+    <a class="nav-item" href="./">App</a>
+    <a class="nav-item" href="./docs.html">Docs</a>
+</nav>
+
+<main>
+    <h1>Programming Language API Docs</h1>
+    <p><a href="docs.html">back to docs</a></p>
+    <h2>/api/getLanguage - <code>GET</code>, <code>HEAD</code></h2>
+    <p>Gets the data of a specific language.</p>
+    <h3>Query Params</h3>
+    <p><code>name</code> - Name of language to get data for (case insensitive)</p>
+    <h3>Returns</h3>
+    <p>A JSON object of a specific language stored.</p>
+    <p>Format: <code>[string]</code></p>
+    <h3>Examples</h3>
+    <p><b>Request:</b> <code>/api/getLanguage?name=exampleScript</code></p>
+    <p><b>Response:</b> <code>{name: "exampleScript", year: 2026, ...}</code></p>
+    <p><br></p>
+    <p><b>Request:</b> <code>/api/getLanguage?name=couldntBeFound</code></p>
+    <p><b>Response:</b> <code>404 Error (Language doens't exist)</code></p>
+</main>
+</body>
+
+</html>

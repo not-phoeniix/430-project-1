@@ -2,7 +2,7 @@ const fs = require("fs");
 const path = require("path");
 
 const DOC_SRC = `${__dirname}/../docs/`;
-const DOC_DST = `${__dirname}/../client/`;
+const DOC_DST = `${__dirname}/../client/docs/`;
 
 const PREFIX_TAG_ASSOCIATIONS = {
     "# ": "h1",
@@ -21,14 +21,16 @@ const HTML_BASE = (bodyInnerHtml, title) => `<!DOCTYPE html>
     <title>${title}</title>
 </head>
 
+<body>
 <nav>
     <span class="nav-item">Project 01</span>
     <a class="nav-item" href="./">App</a>
     <a class="nav-item" href="./docs.html">Docs</a>
 </nav>
 
-<body>
+<main>
 ${bodyInnerHtml}
+</main>
 </body>
 
 </html>`;
@@ -134,7 +136,8 @@ function mdToHtml(fileStr) {
                 tagType = "p";
             }
 
-            if (isEmpty || isFinalLine) {
+            // we shouldn't flush when the buffer is empty
+            if ((isEmpty || isFinalLine) && textBuffer.length > 0) {
                 shouldFlushBuffer = true;
             }
         }

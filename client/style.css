@@ -9,6 +9,26 @@ body {
   font-family: "Roboto", sans-serif;
 }
 
+h1 {
+  font-size: 2.5em;
+}
+
+h2 {
+  font-size: 2em;
+  color: crimson;
+}
+
+h3 {
+  font-size: 1.2em;
+}
+
+main {
+  width: 80%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
 nav {
   padding: 10px;
   background-color: black;
@@ -22,7 +42,6 @@ nav {
 
 .nav-title {
   font-size: xx-large;
-  /* margin-right: 10px; */
 }
 
 a.nav-item {
@@ -49,6 +68,23 @@ code,
 }
 
 .server-response {
-  min-height: 100px;
   overflow-y: scroll;
+  height: 500px;
+  overflow-wrap: break-word;
+  max-width: 400px;
+}
+
+.doc-example {
+  padding: 20px;
+  margin: 10px;
+  border: 1px solid black;
+}
+
+#flex-columns {
+  display: flex;
+  align-items: stretch;
+}
+
+.column {
+  flex: 50%;
 }
