@@ -1,22 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
 html,
 body {
   height: 100%;
   width: 100%;
   margin: 0;
   padding: 0;
+  font-family: "Roboto", sans-serif;
 }
 
-#top {
-  text-align: center;
-  margin: 0 auto;
+nav {
+  padding: 10px;
+  background-color: black;
+  color: white;
 }
 
-#top h1 {
-  font-size: 2em;
+.nav-item {
+  font-size: larger;
+  margin: 3px;
 }
 
-#content {
-  margin-top: 100px;
-  font-size: 2em;
-  text-align: center;
+.nav-title {
+  font-size: xx-large;
+  /* margin-right: 10px; */
+}
+
+a.nav-item {
+  text-decoration: none;
+
+  &:link,
+  &:visited {
+    color: crimson;
+  }
+
+  &:focus,
+  &:hover,
+  &:active {
+    color: white;
+  }
+}
+
+code,
+.server-response {
+  background-color: black;
+  color: white;
+  padding: 2px 5px;
+  font-family: "Roboto Mono", monospace;
+}
+
+.server-response {
+  min-height: 100px;
+  overflow-y: scroll;
 }

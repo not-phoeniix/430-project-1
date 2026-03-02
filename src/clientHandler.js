@@ -1,6 +1,7 @@
 const fs = require("fs");
 
 const index = fs.readFileSync(`${__dirname}/../client/client.html`);
+const docs = fs.readFileSync(`${__dirname}/../client/docs.html`);
 const style = fs.readFileSync(`${__dirname}/../client/style.css`);
 const clientScript = fs.readFileSync(`${__dirname}/../client/client.js`);
 
@@ -17,6 +18,10 @@ function serveIndex(req, res) {
     serveFile(req, res, index, "text/html");
 }
 
+function serveDocs(req, res) {
+    serveFile(req, res, docs, "text/html");
+}
+
 function serveStyle(req, res) {
     serveFile(req, res, style, "text/css");
 }
@@ -27,6 +32,7 @@ function serveScript(req, res) {
 
 module.exports = {
     serveIndex,
+    serveDocs,
     serveStyle,
     serveScript
 };

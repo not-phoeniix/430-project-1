@@ -11,13 +11,14 @@
 </head>
 
 <body>
-  <section id="top">
-    <h3>Programming Language API</h3>
+  <nav>
+    <span class="nav-item nav-title">Project 01</span>
+    <a class="nav-item" href="./">App</a>
+    <a class="nav-item" href="./docs.html">Docs</a>
+  </nav>
 
-    <p>
-      (dataset acquired from <a href="https://jsonlint.com/datasets/programming-languages">
-        https://jsonlint.com/datasets/programming-languages</a>)
-    </p>
+  <section id="top">
+    <h1>Programming Language API Test Application</h1>
 
     <h4>Add Language</h4>
     <form id="add-language-form" action="/api/addLanguage" method="post">
@@ -98,7 +99,9 @@
 
   </section>
 
-  <section id="content"></section>
+  <section id="content">
+    <div class="server-response"></div>
+  </section>
 </body>
 
 </html>

@@ -2,7 +2,14 @@ const fs = require("fs");
 const path = require("path");
 
 const DOC_SRC = `${__dirname}/../docs/`;
-const DOC_DST = `${__dirname}/../client/docs/`;
+const DOC_DST = `${__dirname}/../client/`;
+
+const PREFIX_TAG_ASSOCIATIONS = {
+    "# ": "h1",
+    "## ": "h2",
+    "### ": "h3",
+    "#### ": "h4"
+};
 
 const HTML_BASE = (bodyInnerHtml, title) => `<!DOCTYPE html>
 <html lang="en">
@@ -10,8 +17,15 @@ const HTML_BASE = (bodyInnerHtml, title) => `<!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/style.css">
     <title>${title}</title>
 </head>
+
+<nav>
+    <span class="nav-item">Project 01</span>
+    <a class="nav-item" href="./">App</a>
+    <a class="nav-item" href="./docs.html">Docs</a>
+</nav>
 
 <body>
 ${bodyInnerHtml}
@@ -98,31 +112,23 @@ function mdToHtml(fileStr) {
         const isEmpty = line.replace(/[ ,\t]+/g, "") === "";
         const isFinalLine = i === lines.length - 1;
 
-        if (line.startsWith("# ")) {
-            // we flush any previous text when we get to a new header
-            flushBuffer();
+        let foundTag = false;
+        for (const prefix in PREFIX_TAG_ASSOCIATIONS) {
+            if (line.startsWith(prefix)) {
+                // we flush any previous text when we get to a new standalone tag
+                flushBuffer();
 
-            textBuffer.push(line.substring(2));
-            tagType = "h1";
-            shouldFlushBuffer = true;
+                const substr = line.substring(prefix.length);
+                textBuffer.push(formatInline(substr));
+                tagType = PREFIX_TAG_ASSOCIATIONS[prefix];
+                shouldFlushBuffer = true;
 
-        } else if (line.startsWith("## ")) {
-            // we flush any previous text when we get to a new header
-            flushBuffer();
+                foundTag = true;
+            }
+        }
 
-            textBuffer.push(line.substring(3));
-            tagType = "h2";
-            shouldFlushBuffer = true;
-
-        } else if (line.startsWith("### ")) {
-            // we flush any previous text when we get to a new header
-            flushBuffer();
-
-            textBuffer.push(line.substring(4));
-            tagType = "h3";
-            shouldFlushBuffer = true;
-
-        } else {
+        // fallback for not finding a tag is just a regular paragraph
+        if (!foundTag) {
             if (!isEmpty) {
                 textBuffer.push(formatInline(line));
                 tagType = "p";

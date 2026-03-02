@@ -8,6 +8,7 @@ const PORT = process.env.PORT || process.env.NODE_PORT || 3000;
 
 const routes = {
     "/": clientHandler.serveIndex,
+    "/docs.html": clientHandler.serveDocs,
     "/style.css": clientHandler.serveStyle,
     "/client.js": clientHandler.serveScript,
     "/api/getAllLanguages": apiHandler.getAllLanguages,
