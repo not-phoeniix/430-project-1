@@ -6,10 +6,15 @@
 
 ### Body Params
 `name: string` - The name of the language
+
 `year: number` - The year of the language's creation
+
 `creator : string` - The creator of the language
+
 `paradigm: string` - A CSV string of all programming paradigms this language falls under
+
 `typing: string` - Typing system of this language
+
 `logo: string` - A link to a logo for this language
 
 ### Returns

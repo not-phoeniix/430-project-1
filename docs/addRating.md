@@ -6,7 +6,9 @@
 
 ### Body Params
 `language: string` - The language to add the rating for
+
 `score: number` - The score of the rating
+
 `comment: string` - The detailed comment aspect of the rating
 
 ### Returns
