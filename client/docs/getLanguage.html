@@ -24,10 +24,13 @@
     <p><code>name</code> - Name of language to get data for (case insensitive)</p>
     <h3>Returns</h3>
     <p>A JSON object of a specific language stored.</p>
-    <p>Format: <code>[string]</code></p>
+    <p>Format: <code>{name: string, year: number, creator: string, paradigm: [string], typing: string, logo: string}</code></p>
     <h3>Examples</h3>
     <p><b>Request:</b> <code>/api/getLanguage?name=exampleScript</code></p>
     <p><b>Response:</b> <code>{name: "exampleScript", year: 2026, ...}</code></p>
+    <p><br></p>
+    <p><b>Request:</b> <code>/api/getLanguage</code></p>
+    <p><b>Response:</b> <code>400 Error (Missing "name" param)</code></p>
     <p><br></p>
     <p><b>Request:</b> <code>/api/getLanguage?name=couldntBeFound</code></p>
     <p><b>Response:</b> <code>404 Error (Language doens't exist)</code></p>

@@ -19,6 +19,19 @@
     <h1>Programming Language API Docs</h1>
     <p><a href="docs.html">back to docs</a></p>
     <h2>/api/addLanguage - <code>POST</code></h2>
+    <h3>Body Params</h3>
+    <p><code>name: string</code> - The name of the language <code>year: number</code> - The year of the language's creation <code>creator : string</code> - The creator of the language <code>paradigm: string</code> - A CSV string of all programming paradigms this language falls under <code>typing: string</code> - Typing system of this language <code>logo: string</code> - A link to a logo for this language</p>
+    <h3>Returns</h3>
+    <p>A status code and a JSON object containing server info</p>
+    <p>Format: <code>{message: string, id?: string}</code></p>
+    <h3>Examples</h3>
+    <p><b>Request:</b> <code>/api/addLanguage</code></p>
+    <p><b>Body:</b> <code>{name: "newScript", year: 2026, creator: "Your Name Here!", paradigm: "object-oriented,functional", typing: "dynamic", logo: "logo.com/logo.png"}</code></p>
+    <p><b>Response:</b> <code>{message: "Created successfully!"}</code></p>
+    <p><br></p>
+    <p><b>Request:</b> <code>/api/addRating</code></p>
+    <p><b>Body:</b> <code>{name: "newScript", year: 2026, creator: "Your Name Here!"}</code></p>
+    <p><b>Response:</b> <code>400 Error: {message: "Required parameters missing: ['paradigm', 'typing', 'logo']", id: "addLanguageMissingParams"}</code></p>
 </main>
 </body>
 

@@ -5,6 +5,9 @@
 ## /api/getAllLanguageNames - `GET`, `HEAD`
 Gets the names of all languages stored in the dataset.
 
+### Query Params
+No supported params
+
 ### Returns
 
 A JSON array of all language names stored.
@@ -15,4 +18,3 @@ Format: `[string]`
 **Request:** `/api/getAllLanguageNames`
 
 **Response:** `["exampleScript", "awfulScript++", ...]`
-

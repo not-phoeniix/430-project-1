@@ -19,6 +19,21 @@
     <h1>Programming Language API Docs</h1>
     <p><a href="docs.html">back to docs</a></p>
     <h2>/api/getRating - <code>GET</code>, <code>HEAD</code></h2>
+    <p>Gets the data of a specific rating.</p>
+    <h3>Query Params</h3>
+    <p><code>language</code> - Name of language to get rating for (case insensitive)</p>
+    <h3>Returns</h3>
+    <p>A JSON object of a specific language's stored rating.</p>
+    <p>Format: <code>{language: string, score: number, comment: string}</code></p>
+    <h3>Examples</h3>
+    <p><b>Request:</b> <code>/api/getRating?language=exampleScript</code></p>
+    <p><b>Response:</b> <code>{language: "exampleScript", score: 5, comment: "best language i've ever used :D"}</code></p>
+    <p><br></p>
+    <p><b>Request:</b> <code>/api/getRating</code></p>
+    <p><b>Response:</b> <code>400 Error (Missing "language" param)</code></p>
+    <p><br></p>
+    <p><b>Request:</b> <code>/api/getRating?language=couldntBeFound</code></p>
+    <p><b>Response:</b> <code>404 Error (Rating for language couldn't be found)</code></p>
 </main>
 </body>
 

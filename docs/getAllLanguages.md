@@ -5,6 +5,9 @@
 ## /api/getAllLanguages - `GET`, `HEAD`
 Gets all languages stored in the dataset.
 
+### Query Params
+No supported params
+
 ### Returns
 
 A JSON array of all languages.
