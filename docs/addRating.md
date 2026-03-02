@@ -33,6 +33,6 @@ Format: `{message: string, id?: string}`
 
 **Request:** `/api/addRating`
 
-**Body:** `{language: "doesntExist", score: 0, comment: "this language doesnt exist in the dataset <//3"}`
+**Body:** `{language: "doesntExist", score: 0, comment: "this language doesnt exist in the dataset"}`
 
 **Response:** `404 Error: {message: "Language 'doesntExist' not found in dataset, cannot add rating!", id: "addRatingLangNotFound"}`
