@@ -1,5 +1,5 @@
 const fs = require("fs");
-const { Errors, handleError } = require("./errorHandler.js");
+const { Errors } = require("./errorHandler.js");
 
 function loadClientFile(file) {
     return fs.readFileSync(`${__dirname}/../client/${file}`);
@@ -34,7 +34,7 @@ function serveIndex(req, res) {
 
 function serveDocs(req, res, file) {
     if (!docFiles[file]) {
-        handleError(req, res, Errors.NOT_FOUND);
+        throw Errors.NOT_FOUND;
     }
 
     serveFile(req, res, docFiles[file], "text/html");

@@ -23,8 +23,8 @@ const HTML_BASE = (bodyInnerHtml, title) => `<!DOCTYPE html>
 
 <body>
 <nav>
-    <span class="nav-item">Project 01</span>
-    <a class="nav-item" href="./">App</a>
+    <span class="nav-item nav-title">Project 01</span>
+    <a class="nav-item" href="/">App</a>
     <a class="nav-item" href="./docs.html">Docs</a>
 </nav>
 
