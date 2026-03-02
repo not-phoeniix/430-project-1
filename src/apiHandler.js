@@ -246,7 +246,7 @@ function addLanguage(req, res, body) {
  * @param {Request} req Request from client
  * @param {Response} res Response to client
  * @param {{
- *  name: string;
+ *  language: string;
  *  score: number;
  *  comment: string;
  * }} body Request body from the client
