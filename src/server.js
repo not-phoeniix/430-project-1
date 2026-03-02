@@ -61,7 +61,12 @@ function parseBody(req, res) {
             const bodyStr = Buffer.concat(chunks).toString();
             let body;
 
-            const contentType = req.headers.get("Content-Type")
+            let contentType;
+            if (req.headers) {
+                console.log(JSON.stringify(req.headers));
+                contentType = req.headers["content-type"];
+            }
+
             switch (contentType) {
                 case "application/json":
                     body = JSON.parse(bodyStr);
@@ -91,7 +96,7 @@ async function onRequest(req, res) {
     const url = new URL(req.url, `${protocol}://${req.headers.host}`);
 
     req.query = Object.fromEntries(url.searchParams);
-    req.acceptedTypes = req.headers.Accept?.split(",") ?? [];
+    req.acceptedTypes = req.headers["accept"]?.split(",") ?? [];
 
     const route = getRoute(url.pathname);
     if (!route) {
