@@ -6,7 +6,7 @@
 
 <a href="getAllLanguageNames.html">/api/getAllLanguageNames</a> - `GET`, `HEAD`
 
-<a href="getAllRatings.html">/api/getLanguage</a> - `GET`, `HEAD`
+<a href="getAllRatings.html">/api/getAllRatings</a> - `GET`, `HEAD`
 
 <a href="getLanguage.html">/api/getLanguage</a> - `GET`, `HEAD`
 
